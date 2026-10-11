@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a book club on Bound Together</title>
+<style>
+  body { font-family: -apple-system, Georgia, serif; background: #F5EFE6; color: #3E2F23; margin: 0; padding: 40px 24px; text-align: center; }
+  .card { max-width: 420px; margin: 0 auto; background: #FFFDF8; border: 1px solid #E4D9C6; border-radius: 18px; padding: 32px 24px; }
+  h1 { font-size: 24px; margin: 0 0 8px; }
+  p { font-size: 15px; line-height: 1.5; color: #6B5B4C; }
+  .code { font-size: 34px; font-weight: 800; letter-spacing: 6px; background: #F5EFE6; border-radius: 12px; padding: 14px 10px; margin: 20px 0 8px; }
+  button { font-size: 15px; font-weight: 700; background: #7C5C3E; color: #fff; border: 0; border-radius: 12px; padding: 12px 24px; margin: 6px 4px; cursor: pointer; }
+  button.ghost { background: transparent; color: #7C5C3E; border: 1px solid #7C5C3E; }
+  .stores { margin-top: 18px; }
+  .note { font-size: 12px; margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>You're invited to Bound Together</h1>
+  <p>A book club invite is waiting for you. Install the app, open it, and enter this code to join:</p>
+  <div class="code" id="code">------</div>
+  <button onclick="copyCode()">Copy code</button>
+  <div class="stores">
+    <button class="ghost" onclick="location.href='https://apps.apple.com/app/bound-together/idYOUR_APP_ID'">Get it on the App Store</button><br>
+    <button class="ghost" onclick="location.href='https://play.google.com/store/apps/details?id=com.boundtogether.app'">Get it on Google Play</button>
+  </div>
+  <p class="note">Already have the app? Tap the invite link again from your messages — it will open the club right in the app.</p>
+</div>
+<script>
+  var code = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
+  document.getElementById('code').textContent = code || '------';
+  function copyCode() {
+    if (!code) return;
+    (navigator.clipboard ? navigator.clipboard.writeText(code) : Promise.reject())
+      .then(function(){ alert('Code copied — paste it in the app to join.'); })
+      .catch(function(){ prompt('Copy this code:', code); });
+  }
+</script>
+</body>
+</html>
