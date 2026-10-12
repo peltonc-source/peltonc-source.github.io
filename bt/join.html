@@ -26,11 +26,15 @@
     <button class="ghost" onclick="location.href='https://apps.apple.com/app/id6821529539'">Get it on the App Store</button><br>
     <button class="ghost" onclick="location.href='https://play.google.com/store/apps/details?id=com.boundtogether.app'">Get it on Google Play</button>
   </div>
+  <p class="note" id="androidTest" style="display:none">The Android version is in closed testing right now. Want in? Email <a href="mailto:pelton.casey@gmail.com">pelton.casey@gmail.com</a> with the Gmail address you'd like added as a tester.</p>
   <p class="note">Already have the app? Tap the invite link again from your messages — it will open the club right in the app.</p>
 </div>
 <script>
   var code = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
   document.getElementById('code').textContent = code || '------';
+  if (/Android/i.test(navigator.userAgent)) {
+    document.getElementById('androidTest').style.display = 'block';
+  }
   function copyCode() {
     if (!code) return;
     (navigator.clipboard ? navigator.clipboard.writeText(code) : Promise.reject())
