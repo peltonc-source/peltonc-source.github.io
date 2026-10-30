@@ -9,31 +9,59 @@
   .card { max-width: 420px; margin: 0 auto; background: #FFFDF8; border: 1px solid #E4D9C6; border-radius: 18px; padding: 32px 24px; }
   h1 { font-size: 24px; margin: 0 0 8px; }
   p { font-size: 15px; line-height: 1.5; color: #6B5B4C; }
-  .code { font-size: 34px; font-weight: 800; letter-spacing: 6px; background: #F5EFE6; border-radius: 12px; padding: 14px 10px; margin: 20px 0 8px; }
+  .code { font-size: 34px; font-weight: 800; letter-spacing: 6px; background: #F5EFE6; border-radius: 12px; padding: 14px 10px; margin: 12px 0 8px; }
   button { font-size: 15px; font-weight: 700; background: #7C5C3E; color: #fff; border: 0; border-radius: 12px; padding: 12px 24px; margin: 6px 4px; cursor: pointer; }
   button.ghost { background: transparent; color: #7C5C3E; border: 1px solid #7C5C3E; }
   .stores { margin-top: 18px; }
   .note { font-size: 12px; margin-top: 18px; }
+  .step { text-align: left; background: #FDF9F1; border: 1px solid #E4D9C6; border-radius: 14px; padding: 16px; margin: 14px 0; }
+  .step h2 { font-size: 16px; margin: 0 0 4px; color: #3E2F23; }
+  .step p { font-size: 13.5px; margin: 0 0 10px; }
+  .step .num { display: inline-block; background: #7C5C3E; color: #fff; border-radius: 999px; width: 22px; height: 22px; line-height: 22px; text-align: center; font-size: 13px; font-weight: 800; margin-right: 8px; vertical-align: 1px; }
 </style>
 </head>
 <body>
 <div class="card">
   <h1>You're invited to Bound Together</h1>
-  <p>A book club invite is waiting for you. Install the app, open it, and enter this code to join:</p>
-  <div class="code" id="code">------</div>
-  <button onclick="copyCode()">Copy code</button>
-  <div class="stores">
-    <button class="ghost" onclick="location.href='https://apps.apple.com/app/id6821529539'">Get it on the App Store</button><br>
-    <button class="ghost" onclick="location.href='https://play.google.com/apps/testing/com.boundtogether.app'">Get it on Google Play</button>
+
+  <div id="standardFlow">
+    <p>A book club invite is waiting for you. Install the app, open it, and enter this code to join:</p>
+    <div class="code" id="codeMain">------</div>
+    <button onclick="copyCode()">Copy code</button>
+    <div class="stores">
+      <button class="ghost" onclick="location.href='https://apps.apple.com/app/id6821529539'">Get it on the App Store</button><br>
+      <button class="ghost" onclick="location.href='https://play.google.com/apps/testing/com.boundtogether.app'">Get it on Google Play</button>
+    </div>
   </div>
-  <p class="note" id="androidTest" style="display:none">The Android version is in closed testing. <b>Step 1:</b> <a href="https://groups.google.com/g/bound-together-testers" style="color:#7C5C3E">join the tester group</a> (one tap, no approval needed). <b>Step 2:</b> tap "Get it on Google Play" above to install.</p>
+
+  <div id="androidFlow" style="display:none">
+    <p>The Android version is in testing, so it takes three quick steps — <b>in this order</b>. Use the same Google account for all of them:</p>
+    <div class="step">
+      <h2><span class="num">1</span>Join the tester group</h2>
+      <p>One tap, no approval needed. This is what unlocks the app for your account.</p>
+      <button onclick="location.href='https://groups.google.com/g/bound-together-testers'">Join the tester group</button>
+    </div>
+    <div class="step">
+      <h2><span class="num">2</span>Become a tester &amp; install</h2>
+      <p>Tap "Become a tester", then install the app. If it says "App not available", give it a few minutes after Step 1 — Google takes a moment to catch up — then try again.</p>
+      <button onclick="location.href='https://play.google.com/apps/testing/com.boundtogether.app'">Become a tester &amp; install</button>
+    </div>
+    <div class="step">
+      <h2><span class="num">3</span>Open the app &amp; enter your code</h2>
+      <div class="code" id="codeAndroid">------</div>
+      <button onclick="copyCode()">Copy code</button>
+    </div>
+  </div>
+
   <p class="note">Already have the app? Tap the invite link again from your messages — it will open the club right in the app.</p>
 </div>
 <script>
   var code = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
-  document.getElementById('code').textContent = code || '------';
+  document.getElementById('codeMain').textContent = code || '------';
+  document.getElementById('codeAndroid').textContent = code || '------';
   if (/Android/i.test(navigator.userAgent)) {
-    document.getElementById('androidTest').style.display = 'block';
+    document.getElementById('androidFlow').style.display = 'block';
+    document.getElementById('standardFlow').style.display = 'none';
   }
   function copyCode() {
     if (!code) return;
