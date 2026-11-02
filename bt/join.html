@@ -39,6 +39,11 @@
 
   <div id="androidFlow" style="display:none">
     <p>The Android version is in testing, so it takes three quick steps — <b>in this order</b>. Use the same Google account for all of them:</p>
+    <div class="step" style="border-color:#7C5C3E">
+      <h2>Already have the app?</h2>
+      <p>Skip the steps — open the app with your invite code already loaded. No typing needed:</p>
+      <button onclick="openApp()">Open Bound Together</button>
+    </div>
     <div class="step">
       <h2><span class="num">1</span>Join the tester group</h2>
       <p>One tap, no approval needed. This is what unlocks the app for your account.</p>
@@ -56,7 +61,7 @@
     </div>
   </div>
 
-  <p class="note">Already have the app? Tap the invite link again from your messages — it will open the club right in the app.</p>
+  <p class="note">Already have the app? On iPhone, tap the invite link again from your messages — it opens the club right in the app. On Android, tap "Open Bound Together" above.</p>
 </div>
 <script>
   var code = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
@@ -65,6 +70,10 @@
   if (/Android/i.test(navigator.userAgent)) {
     document.getElementById('androidFlow').style.display = 'block';
     document.getElementById('standardFlow').style.display = 'none';
+  }
+  function openApp() {
+    if (!code) return;
+    location.href = 'boundtogether://join?code=' + encodeURIComponent(code);
   }
   function copyCode() {
     if (!code) return;
