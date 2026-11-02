@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.boundtogether.app",
+      "sha256_cert_fingerprints": [
+        "A8:EB:38:10:90:8D:CB:8A:09:15:64:5A:B8:E6:8E:71:F3:3E:4B:CC:D3:B7:80:0C:03:0A:E2:34:52:BF:21:5D"
+      ]
+    }
+  }
+]
